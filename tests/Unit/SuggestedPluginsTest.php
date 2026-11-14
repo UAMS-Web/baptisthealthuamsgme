@@ -4,17 +4,16 @@
  * Unit tests for includes/suggested-plugins.php.
  *
  * The file is only loaded by functions.php inside `is_admin()`, so the bootstrap
- * never includes it. Stand-in `TGM_Plugin_Activation` and `WP_List_Table` classes let the
- * vendored library's own `class_exists()` guards skip WordPress' files, and `tgmpa()` is mocked per
- * test. The file is included once per process (it declares a function); the hook
- * registration it makes is read back from Brain Monkey in the same call.
+ * never includes it. Stand-in `TGM_Plugin_Activation` and `WP_List_Table` classes let
+ * the vendored library's own `class_exists()` guards skip WordPress' files, and a
+ * recording `tgmpa()` stands in for the library's helper. The file is included once
+ * per process (it declares a function); the hook registration it makes is read back
+ * from Brain Monkey in the same call.
  *
  * Mutation (macOS, working evidence only): 54 mutants tested, all killed.
  */
 
 declare(strict_types=1);
-
-use Brain\Monkey\Functions;
 
 use function Brain\Monkey\Functions\stubTranslationFunctions;
 use function Brain\Monkey\Functions\when;
@@ -26,6 +25,14 @@ if (! class_exists('TGM_Plugin_Activation')) {
 // The vendored file requires WordPress' list table outside its own guard.
 if (! class_exists('WP_List_Table')) {
     class WP_List_Table {}
+}
+
+// Recording stand-in for the library's helper; the vendored file declares it only if it does not exist.
+if (! function_exists('tgmpa')) {
+    function tgmpa(array $plugins, array $config = []): void
+    {
+        $GLOBALS['tgmpa_calls'][] = [$plugins, $config];
+    }
 }
 
 /**
@@ -48,12 +55,10 @@ function load_suggested_plugins(): int|false
 }
 
 beforeEach(function (): void {
+    $GLOBALS['tgmpa_calls'] = [];
     stubTranslationFunctions();
     when('_x')->returnArg(1);
     when('_n_noop')->alias(fn (string $single, string $plural): array => [$single, $plural]);
-    if (! function_exists('tgmpa')) {
-        when('tgmpa')->justReturn();
-    }
 });
 
 it('hooks the registration into tgmpa_register at the default priority', function (): void {
@@ -63,29 +68,22 @@ it('hooks the registration into tgmpa_register at the default priority', functio
 it('registers the three recommended plugins', function (): void {
     load_suggested_plugins();
 
-    $captured = null;
-    Functions\expect('tgmpa')->once()->andReturnUsing(function (array $plugins, array $config) use (&$captured): void {
-        $captured = [$plugins, $config];
-    });
-
     utility_pro_register_required_plugins();
 
-    expect($captured[0])->toBe([
-        ['name' => 'Better Font Awesome', 'slug' => 'better-font-awesome', 'required' => false],
-        ['name' => 'Genesis E-News Extended', 'slug' => 'genesis-enews-extended', 'required' => false],
-        ['name' => 'WP Accessibility', 'slug' => 'wp-accessibility', 'required' => false],
-    ]);
+    expect($GLOBALS['tgmpa_calls'])->toHaveCount(1)
+        ->and($GLOBALS['tgmpa_calls'][0][0])->toBe([
+            ['name' => 'Better Font Awesome', 'slug' => 'better-font-awesome', 'required' => false],
+            ['name' => 'Genesis E-News Extended', 'slug' => 'genesis-enews-extended', 'required' => false],
+            ['name' => 'WP Accessibility', 'slug' => 'wp-accessibility', 'required' => false],
+        ]);
 });
 
 it('passes the installer configuration', function (): void {
     load_suggested_plugins();
 
-    $config = null;
-    Functions\expect('tgmpa')->once()->andReturnUsing(function (array $plugins, array $passed) use (&$config): void {
-        $config = $passed;
-    });
-
     utility_pro_register_required_plugins();
+
+    $config = $GLOBALS['tgmpa_calls'][0][1];
 
     expect($config)
         ->toMatchArray([

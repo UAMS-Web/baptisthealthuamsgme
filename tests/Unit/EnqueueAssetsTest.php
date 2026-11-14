@@ -16,7 +16,7 @@ use function Brain\Monkey\Functions\when;
 
 it('enqueues the theme scripts, localizes the menu strings and sets the background image', function (): void {
     if (! defined('CHILD_THEME_VERSION')) {
-        define('CHILD_THEME_VERSION', '9.9.9');
+        define('CHILD_THEME_VERSION', '1.3.1');
     }
 
     when('__')->returnArg();
