@@ -22,3 +22,24 @@ it('moves the license page from Appearance to the Genesis menu', function (): vo
 
     utility_pro_move_license_page_menu_item();
 });
+
+it('moves nothing when the Appearance item is not there', function (): void {
+    expect('remove_submenu_page')->once()->with('themes.php', 'utility-pro-license')->andReturn(false);
+    expect('add_submenu_page')->never();
+
+    utility_pro_move_license_page_menu_item();
+});
+
+it('moves nothing when the updater was not built', function (): void {
+    $updater = $GLOBALS['updater'];
+    $GLOBALS['updater'] = null;
+
+    try {
+        expect('remove_submenu_page')->once()->andReturn(['Menu title', 'manage_options', 'utility-pro-license', 'Page title']);
+        expect('add_submenu_page')->never();
+
+        utility_pro_move_license_page_menu_item();
+    } finally {
+        $GLOBALS['updater'] = $updater;
+    }
+});

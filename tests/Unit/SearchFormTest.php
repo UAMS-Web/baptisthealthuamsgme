@@ -21,6 +21,24 @@ beforeEach(function (): void {
     when('get_search_query')->justReturn('');
 });
 
+/**
+ * First capture group of a pattern that must match.
+ */
+function search_form_capture(string $pattern, string $html): string
+{
+    return preg_match($pattern, $html, $matches) === 1 ? $matches[1] : throw new LogicException("No match for {$pattern}");
+}
+
+/**
+ * Position of a needle that must be in the markup.
+ */
+function search_form_position(string $html, string $needle): int
+{
+    $position = strpos($html, $needle);
+
+    return $position !== false ? $position : throw new LogicException("{$needle} is not in the markup.");
+}
+
 it('builds a search form posting to the site root', function (): void {
     $html = (new Utility_Pro_Search_Form)->get_form();
 
@@ -34,20 +52,18 @@ it('builds a search form posting to the site root', function (): void {
 it('labels the input with the same id the input carries', function (): void {
     $html = (new Utility_Pro_Search_Form)->get_form();
 
-    preg_match('/<label for="([^"]+)" class="screen-reader-text">Search site<\/label>/', $html, $label);
-    preg_match('/<input [^>]*id="([^"]+)"/', $html, $input);
+    $label = search_form_capture('/<label for="([^"]+)" class="screen-reader-text">Search site<\/label>/', $html);
+    $input = search_form_capture('/<input [^>]*id="([^"]+)"/', $html);
 
-    expect($label)->toHaveCount(2)
-        ->and($input)->toHaveCount(2)
-        ->and($label[1])->toStartWith('searchform-')
-        ->and($input[1])->toBe($label[1]);
+    expect($label)->toStartWith('searchform-')
+        ->and($input)->toBe($label);
 });
 
 it('gives each form instance its own id', function (): void {
-    preg_match('/for="([^"]+)"/', (new Utility_Pro_Search_Form)->get_form(), $first);
-    preg_match('/for="([^"]+)"/', (new Utility_Pro_Search_Form)->get_form(), $second);
+    $first = search_form_capture('/for="([^"]+)"/', (new Utility_Pro_Search_Form)->get_form());
+    $second = search_form_capture('/for="([^"]+)"/', (new Utility_Pro_Search_Form)->get_form());
 
-    expect($first[1])->not->toBe($second[1]);
+    expect($first)->not->toBe($second);
 });
 
 it('keeps one id across repeated calls on the same instance', function (): void {
@@ -100,19 +116,18 @@ it('runs the Genesis filters over the default strings', function (): void {
 it('renders the label, then the input, then the button', function (): void {
     $html = (new Utility_Pro_Search_Form)->get_form();
 
-    $label = strpos($html, '<label');
-    $input = strpos($html, '<input');
-    $button = strpos($html, '<button');
+    $label = search_form_position($html, '<label');
+    $input = search_form_position($html, '<input');
+    $button = search_form_position($html, '<button');
 
-    expect($label)->toBeInt()
-        ->and($input)->toBeGreaterThan($label)
+    expect($input)->toBeGreaterThan($label)
         ->and($button)->toBeGreaterThan($input);
 });
 
 it('builds the id from the searchform prefix and a more-entropy uniqid', function (): void {
-    preg_match('/for="([^"]+)"/', (new Utility_Pro_Search_Form)->get_form(), $id);
+    $id = search_form_capture('/for="([^"]+)"/', (new Utility_Pro_Search_Form)->get_form());
 
-    expect($id[1])->toMatch('/^searchform-[0-9a-f]{14}\.[0-9]+$/');
+    expect($id)->toMatch('/^searchform-[0-9a-f]{14}\.[0-9]+$/');
 });
 
 it('returns one string by key, or every string for all and for an unknown key', function (): void {
@@ -131,4 +146,17 @@ it('returns one string by key, or every string for all and for an unknown key', 
         ->and($form->read())->toHaveKeys(['label', 'placeholder', 'button', 'button_label'])
         ->and($form->read('all'))->toBeArray()
         ->and($form->read('missing'))->toBeArray()->toHaveKey('label');
+});
+
+it('returns one string by key, and an empty string for an unknown key', function (): void {
+    $form = new class(['label' => 'Find']) extends Utility_Pro_Search_Form
+    {
+        public function readString(string $key): string
+        {
+            return $this->get_string($key);
+        }
+    };
+
+    expect($form->readString('label'))->toBe('Find')
+        ->and($form->readString('missing'))->toBe('');
 });

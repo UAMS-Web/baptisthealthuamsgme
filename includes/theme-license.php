@@ -59,5 +59,11 @@ function utility_pro_move_license_page_menu_item(): void
 {
     global $updater;
     $page = remove_submenu_page('themes.php', 'utility-pro-license');
+
+    // Without the page or the updater there is nothing to move.
+    if ($page === false || ! $updater instanceof EDD_Theme_Updater_Admin) {
+        return;
+    }
+
     add_submenu_page('genesis', $page[3], $page[0], $page[1], $page[2], [$updater, 'license_page']);
 }

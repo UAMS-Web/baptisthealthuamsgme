@@ -27,8 +27,7 @@ it('prints the utility bar widget area inside its wrapper', function (): void {
 it('prepends the featured image on a single post with a thumbnail', function (): void {
     when('is_singular')->justReturn(true);
     when('has_post_thumbnail')->justReturn(true);
-    when('get_the_ID')->justReturn(42);
-    Functions\expect('get_the_post_thumbnail')->once()->with(42, 'feature-large')->andReturn('<img src="x.jpg">');
+    Functions\expect('get_the_post_thumbnail')->once()->with(null, 'feature-large')->andReturn('<img src="x.jpg">');
 
     expect(utility_pro_featured_image('<p>Body</p>'))
         ->toBe('<div class="featured-image"><img src="x.jpg"></div><p>Body</p>');

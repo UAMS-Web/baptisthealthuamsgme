@@ -63,6 +63,21 @@ class Utility_Pro_Search_Form
     }
 
     /**
+     * Get one string.
+     *
+     * @since 1.3.3
+     *
+     * @param  string  $key  Identifier for which string to return.
+     * @return string The string, or an empty string when the key is not set.
+     */
+    protected function get_string(string $key): string
+    {
+        $value = $this->strings($key);
+
+        return is_string($value) ? $value : '';
+    }
+
+    /**
      * Get one or all strings.
      *
      * @since 1.0.0
@@ -107,7 +122,7 @@ class Utility_Pro_Search_Form
         return sprintf(
             '<label for="%s" class="screen-reader-text">%s</label>',
             esc_attr($this->get_id()),
-            esc_attr($this->strings('label'))
+            esc_attr($this->get_string('label'))
         );
     }
 
@@ -126,7 +141,7 @@ class Utility_Pro_Search_Form
             '<input type="search" name="s" id="%s" value="%s" placeholder="%s" autocomplete="off" />',
             esc_attr($this->get_id()),
             esc_attr($value),
-            esc_attr($this->strings('placeholder'))
+            esc_attr($this->get_string('placeholder'))
         );
     }
 
@@ -141,8 +156,8 @@ class Utility_Pro_Search_Form
     {
         return sprintf(
             '<button type="submit" aria-label="%s"><span class="search-button-text">%s</span></button>',
-            esc_attr($this->strings('button_label')),
-            $this->strings('button')
+            esc_attr($this->get_string('button_label')),
+            $this->get_string('button')
         );
     }
 
