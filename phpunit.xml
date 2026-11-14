@@ -20,6 +20,10 @@
         <include>
             <directory suffix=".php">./includes</directory>
             <file>./functions.php</file>
+            <file>./front-page.php</file>
+            <file>./page_landing.php</file>
+            <file>./page_leadership.php</file>
+            <file>./page_news.php</file>
         </include>
         <exclude>
             <directory>./includes/vendors</directory>
