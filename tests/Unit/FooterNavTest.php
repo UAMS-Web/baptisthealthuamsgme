@@ -22,6 +22,14 @@ it('prints the Genesis footer menu for the footer theme location', function (): 
     utility_pro_do_footer_nav();
 });
 
+it('adds the schema.org navigation microdata and keeps the other attributes', function (): void {
+    expect(utility_pro_footer_nav_schema(['class' => 'nav-footer']))->toBe([
+        'class' => 'nav-footer',
+        'itemscope' => true,
+        'itemtype' => 'https://schema.org/SiteNavigationElement',
+    ]);
+});
+
 it('limits the footer menu to one level and keeps its other arguments', function (): void {
     expect(utility_pro_footer_menu_args(['theme_location' => 'footer', 'depth' => 0, 'echo' => false]))
         ->toBe(['theme_location' => 'footer', 'depth' => 1, 'echo' => false]);

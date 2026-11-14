@@ -78,7 +78,7 @@ it('uses previous and next navigation for any other Genesis option', function ()
     when('__')->returnArg();
     when('genesis_get_option')->justReturn('prev-next');
 
-    Functions\expect('the_posts_navigation')->once();
+    Functions\expect('the_posts_navigation')->once()->withNoArgs();
     Functions\expect('the_posts_pagination')->never();
 
     utility_pro_post_pagination();
