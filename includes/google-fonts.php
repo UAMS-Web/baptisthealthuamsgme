@@ -28,7 +28,7 @@ function utility_pro_enqueue_fonts(): void
  * @link http://themeshaper.com/2014/08/13/how-to-add-google-fonts-to-wordpress-themes/
  * @since  1.0.0
  */
-function utility_pro_fonts_url()
+function utility_pro_fonts_url(): string
 {
     $fonts_url = '';
 

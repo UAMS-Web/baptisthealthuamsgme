@@ -80,8 +80,15 @@ function load_theme(): void
 
     $calls = $GLOBALS['theme_calls'];
 
-    expect(constant('CHILD_THEME_NAME'))->toBe('utility-pro')
-        ->and(constant('CHILD_THEME_URL'))->toBe('https://store.carriedils.com/utility-pro')
+    // The name and URL are defined at run time by functions.php, so they are read through constant().
+    $themeConstant = static function (string $name): string {
+        $value = constant($name);
+
+        return is_string($value) ? $value : throw new LogicException("{$name} is not a string.");
+    };
+
+    expect([$themeConstant('CHILD_THEME_NAME'), $themeConstant('CHILD_THEME_URL')])
+        ->toBe(['utility-pro', 'https://store.carriedils.com/utility-pro'])
         ->and(CHILD_THEME_VERSION)->toBe('1.3.2')
         ->and($calls['supports'])->toBe([
             ['html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']],
@@ -118,7 +125,7 @@ function load_theme(): void
     // The license updater is the real vendored class, built with this theme's store details.
     expect($GLOBALS['updater'])->toBeInstanceOf(EDD_Theme_Updater_Admin::class);
 
-    // Some of its properties are dynamic (never declared), so read them all through the object's own scope.
+    // Its properties are protected, so read them all through the object's own scope.
     $properties = (fn (): array => get_object_vars($this))->call($GLOBALS['updater']);
     $read = static fn (string $property): mixed => $properties[$property] ?? null;
 

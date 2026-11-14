@@ -24,6 +24,9 @@ if (! function_exists('add_theme_support')) {
 }
 
 if (! function_exists('genesis_register_sidebar')) {
+    /**
+     * @param  array<string, mixed>  $sidebar
+     */
     function genesis_register_sidebar(array $sidebar): void
     {
         $GLOBALS['theme_calls']['sidebars'][] = $sidebar;
@@ -52,6 +55,10 @@ if (! function_exists('genesis_unregister_layout')) {
 }
 
 if (! function_exists('tgmpa')) {
+    /**
+     * @param  array<int, array<string, mixed>>  $plugins
+     * @param  array<string, mixed>  $config
+     */
     function tgmpa(array $plugins, array $config = []): void
     {
         $GLOBALS['tgmpa_calls'][] = [$plugins, $config];
@@ -59,6 +66,11 @@ if (! function_exists('tgmpa')) {
 }
 
 if (! function_exists('wp_parse_args')) {
+    /**
+     * @param  array<string, mixed>  $args
+     * @param  array<string, mixed>  $defaults
+     * @return array<string, mixed>
+     */
     function wp_parse_args(array $args, array $defaults = []): array
     {
         return array_merge($defaults, $args);
