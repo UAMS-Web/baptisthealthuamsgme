@@ -1,9 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Utility Pro.
  *
- * @package      Utility_Pro
  * @link         http://www.carriedils.com/utility-pro
+ *
  * @author       Carrie Dils
  * @copyright    Copyright (c) 2015, Carrie Dils
  * @license      GPL-2.0+
@@ -14,34 +16,37 @@
  *
  * @since  1.0.0
  */
-function utility_pro_do_footer_nav() {
+function utility_pro_do_footer_nav()
+{
 
-	genesis_nav_menu(
-		array(
-			'menu_class'     => 'menu genesis-nav-menu menu-footer',
-			'theme_location' => 'footer',
-		)
-	);
+    genesis_nav_menu(
+        [
+            'menu_class' => 'menu genesis-nav-menu menu-footer',
+            'theme_location' => 'footer',
+        ]
+    );
 }
 
 // Add schema markup to Footer Navigation Menu.
-add_filter( 'genesis_attr_nav-footer', 'genesis_attributes_nav' );
+add_filter('genesis_attr_nav-footer', 'genesis_attributes_nav');
 
-add_filter( 'wp_nav_menu_args', 'utility_pro_footer_menu_args' );
+add_filter('wp_nav_menu_args', 'utility_pro_footer_menu_args');
 /**
  * Reduce the footer navigation menu to one level depth.
  *
  * @since  1.0.0
  *
- * @param  array $args Existing footer menu args.
+ * @param  array  $args  Existing footer menu args.
  * @return array Amended footer menu args.
  */
-function utility_pro_footer_menu_args( $args ) {
+function utility_pro_footer_menu_args($args)
+{
 
-	if ( 'footer' !== $args['theme_location'] ) {
-		return $args;
-	}
+    if ($args['theme_location'] !== 'footer') {
+        return $args;
+    }
 
-	$args['depth'] = 1;
-	return $args;
+    $args['depth'] = 1;
+
+    return $args;
 }
