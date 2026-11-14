@@ -18,7 +18,7 @@ $GLOBALS['updater'] = new EDD_Theme_Updater_Admin(
         'remote_api_url' => 'https://store.carriedils.com', // Site where EDD is hosted.
         'item_name' => 'Utility Pro',                  // Name of theme.
         'theme_slug' => 'utility-pro',                  // Theme slug.
-        'version' => '1.3.2',                        // The current version of this theme.
+        'version' => '1.3.3',                        // The current version of this theme.
         'author' => 'Carrie Dils',                  // The author of this theme.
     ],
     $strings = [
