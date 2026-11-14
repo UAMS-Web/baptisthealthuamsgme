@@ -89,8 +89,8 @@ function load_theme(): void
 
     $calls = $GLOBALS['theme_calls'];
 
-    expect(CHILD_THEME_NAME)->toBe('utility-pro')
-        ->and(CHILD_THEME_URL)->toBe('https://store.carriedils.com/utility-pro')
+    expect(constant('CHILD_THEME_NAME'))->toBe('utility-pro')
+        ->and(constant('CHILD_THEME_URL'))->toBe('https://store.carriedils.com/utility-pro')
         ->and(CHILD_THEME_VERSION)->toBe('1.3.2')
         ->and($calls['supports'])->toBe([
             ['html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']],
