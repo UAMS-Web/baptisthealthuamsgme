@@ -1,3 +1,4 @@
 /vendor/
 /tests/Integration/vendor/
 /.phpstan/
+/tests/Integration/.phpunit.result.cache

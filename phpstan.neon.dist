@@ -76,9 +76,14 @@ parameters:
     # composer.json.
     # includes/vendors is third-party (TGM Plugin Activation, EDD updater): not
     # analyzed, but scanned so the symbols first-party code calls into are known.
+    #
+    # tests/Integration is not analyzed either: its test classes extend WP_UnitTestCase, which ships with
+    # wp-phpunit under tests/Integration/vendor, and a scanned directory that does not exist stops PHPStan
+    # (the CI jobs install only the root's Composer setup). Revisit with the CI follow-up to #46.
     excludePaths:
         analyse:
             - includes/vendors
+            - tests/Integration
     scanDirectories:
         - includes/vendors
 
