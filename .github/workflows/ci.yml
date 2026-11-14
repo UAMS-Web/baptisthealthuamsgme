@@ -14,9 +14,10 @@ name: CI
 #
 # Mutation is on (UAMS-Web/baptisthealthuamsgme#15). A pull request or push mutates the changed PHP
 # files under `mutate-paths`; a manual run mutates the files the `composer mutate` script names. The
-# `mutate-paths` entry `includes` also matches third-party `includes/vendors`, which the script leaves
-# out, so a change there would be selected on a pull request. The `mutate-ignore` job audits
-# annotations over `includes` and `tests`.
+# `mutate-paths` entry names each first-party file under `includes` rather than the folder, because the
+# folder also matches third-party `includes/vendors`, which the script leaves out and a change there would
+# be selected on a pull request and fail. A new first-party file under `includes` is added to `mutate-paths`
+# and to the `composer mutate` script. The `mutate-ignore` job audits annotations over `includes` and `tests`.
 
 on:
   pull_request:
@@ -53,7 +54,7 @@ jobs:
     with:
       linux-only: true
       mutate: true
-      mutate-paths: functions.php front-page.php page_landing.php page_leadership.php page_news.php includes
+      mutate-paths: functions.php front-page.php page_landing.php page_leadership.php page_news.php includes/class-search-form.php includes/enqueue-assets.php includes/footer-nav.php includes/google-fonts.php includes/suggested-plugins.php includes/theme-config.php includes/theme-license.php includes/widget-areas.php
       mutate-ignore: true
       mutate-ignore-paths: includes tests
       pest-command: composer test:unit
