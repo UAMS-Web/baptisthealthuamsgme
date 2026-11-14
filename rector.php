@@ -120,6 +120,8 @@ return RectorConfig::configure()
         // setup (the tests skill): its vendor/ sits inside tests/, and Rector
         // would otherwise rewrite PHPUnit 9 and its dependencies. Uncomment.
         __DIR__.'/includes/vendors',
+        // The Integration suite is PHPUnit 9.6 from its own Composer setup, and its vendor/ sits inside it.
+        __DIR__.'/tests/Integration',
         ...$neverRules,
         ...($isSweepProfile ? [] : $sweepOnlyRules),
     ])

@@ -15,6 +15,7 @@
         }
     },
     "exclude": [
-        "includes/vendors"
+        "includes/vendors",
+        "tests/Integration/vendor"
     ]
 }

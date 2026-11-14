@@ -26,8 +26,13 @@
         }
     },
     "scripts": {
-        "test": "@test:unit",
+        "test": [
+            "@test:unit",
+            "@test:integration"
+        ],
         "test:unit": "pest",
+        "setup:integration": "composer install --working-dir=tests/Integration --no-interaction --no-progress",
+        "test:integration": "@php tests/Integration/vendor/bin/phpunit --configuration tests/Integration/phpunit.xml",
         "mutate": "pest --mutate --path=front-page.php,functions.php,includes/class-search-form.php,includes/enqueue-assets.php,includes/footer-nav.php,includes/google-fonts.php,includes/suggested-plugins.php,includes/theme-config.php,includes/theme-license.php,includes/widget-areas.php,page_landing.php,page_leadership.php,page_news.php",
         "stan": "phpstan analyse --no-progress --memory-limit=2G",
         "refactor": "rector",
@@ -38,8 +43,10 @@
         "test:pint": "pint --test"
     },
     "scripts-descriptions": {
-        "test": "Run the test suites (the Unit suite only until an Integration suite exists).",
+        "test": "Run the Unit suite, then the Integration suite (which needs WordPress, Genesis and a test database; CI runs the Unit suite only).",
         "test:unit": "Run the Pest suite that needs no WordPress and no database.",
+        "setup:integration": "Install the Integration suite's own Composer setup (PHPUnit 9.6, wp-phpunit), once.",
+        "test:integration": "Run the Integration suite against WordPress and real Genesis (drops and rebuilds the test database).",
         "mutate": "Run mutation testing over the first-party PHP (the CI mutate job passes --min=100).",
         "stan": "Run PHPStan at the configured level.",
         "refactor": "Apply Rector's gating profile.",
