@@ -27,8 +27,25 @@ function utility_pro_do_footer_nav(): void
     );
 }
 
-// Add schema markup to Footer Navigation Menu.
-add_filter('genesis_attr_nav-footer', 'genesis_attributes_nav');
+add_filter('genesis_attr_nav-footer', 'utility_pro_footer_nav_schema');
+/**
+ * Add schema markup to the footer navigation menu.
+ *
+ * Replaces the Genesis `genesis_attributes_nav()` callback, which Genesis deprecated in 3.1.0 and which raises a
+ * deprecation notice whenever the footer menu renders.
+ *
+ * @since  1.3.3
+ *
+ * @param  array  $attributes  Existing footer navigation attributes.
+ * @return array Attributes with the schema.org navigation microdata added.
+ */
+function utility_pro_footer_nav_schema($attributes)
+{
+    $attributes['itemscope'] = true;
+    $attributes['itemtype'] = 'https://schema.org/SiteNavigationElement';
+
+    return $attributes;
+}
 
 add_filter('wp_nav_menu_args', 'utility_pro_footer_menu_args');
 /**

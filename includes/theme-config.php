@@ -105,6 +105,6 @@ function utility_pro_post_pagination(): void
     if (genesis_get_option('posts_nav') === 'numeric') {
         the_posts_pagination($args);
     } else {
-        the_posts_navigation($args);
+        the_posts_navigation();
     }
 }

@@ -50,7 +50,7 @@ function load_theme(): void
         ['filter', 'genesis_author_box_gravatar_size', 'utility_pro_author_box_gravatar_size', 10],
         ['action', 'wp_enqueue_scripts', 'utility_pro_enqueue_assets', 10],
         ['action', 'wp_enqueue_scripts', 'utility_pro_enqueue_fonts', 10],
-        ['filter', 'genesis_attr_nav-footer', 'genesis_attributes_nav', 10],
+        ['filter', 'genesis_attr_nav-footer', 'utility_pro_footer_nav_schema', 10],
         ['filter', 'wp_nav_menu_args', 'utility_pro_footer_menu_args', 10],
         ['filter', 'widget_text', 'do_shortcode', 10],
         ['filter', 'theme_page_templates', 'utility_pro_remove_genesis_page_templates', 10],
