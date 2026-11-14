@@ -36,8 +36,8 @@ add_filter('genesis_attr_nav-footer', 'utility_pro_footer_nav_schema');
  *
  * @since  1.3.3
  *
- * @param  array  $attributes  Existing footer navigation attributes.
- * @return array Attributes with the schema.org navigation microdata added.
+ * @param  array<string, mixed>  $attributes  Existing footer navigation attributes.
+ * @return array<string, mixed> Attributes with the schema.org navigation microdata added.
  */
 function utility_pro_footer_nav_schema($attributes)
 {
@@ -53,8 +53,8 @@ add_filter('wp_nav_menu_args', 'utility_pro_footer_menu_args');
  *
  * @since  1.0.0
  *
- * @param  array  $args  Existing footer menu args.
- * @return array Amended footer menu args.
+ * @param  array<string, mixed>  $args  Existing footer menu args.
+ * @return array<string, mixed> Amended footer menu args.
  */
 function utility_pro_footer_menu_args($args)
 {

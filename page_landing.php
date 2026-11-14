@@ -15,8 +15,8 @@ add_filter('body_class', 'utility_add_body_class');
  *
  * @since 1.1.0
  *
- * @param  array  $classes  Existing body classes.
- * @return array Amended body classes.
+ * @param  array<int, string>  $classes  Existing body classes.
+ * @return array<int, string> Amended body classes.
  */
 function utility_add_body_class($classes)
 {

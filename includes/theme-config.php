@@ -18,8 +18,8 @@ add_filter('theme_page_templates', 'utility_pro_remove_genesis_page_templates');
 /**
  * Remove Genesis Blog page template.
  *
- * @param  array  $page_templates  Existing recognised page templates.
- * @return array Amended recognised page templates.
+ * @param  array<string, string>  $page_templates  Existing recognised page templates.
+ * @return array<string, string> Amended recognised page templates.
  */
 function utility_pro_remove_genesis_page_templates($page_templates)
 {
@@ -38,8 +38,8 @@ add_filter('genesis_attr_nav-footer', 'utility_pro_add_nav_secondary_id');
  * @link http://robincornett.com/genesis-responsive-menu/
  * @since 1.2.1
  *
- * @param  array  $attributes  Optional. Extra attributes to merge with defaults.
- * @return array Merged and filtered attributes.
+ * @param  array<string, mixed>  $attributes  Optional. Extra attributes to merge with defaults.
+ * @return array<string, mixed> Merged and filtered attributes.
  */
 function utility_pro_add_nav_secondary_id($attributes)
 {
@@ -55,7 +55,7 @@ add_filter('genesis_skip_links_output', 'utility_pro_add_nav_secondary_skip_link
  * @since 1.2.1
  *
  * @param  array<string, string>  $links  Default skiplinks.
- * @return array Amended markup for Genesis skip links.
+ * @return array<string, string> Amended markup for Genesis skip links.
  */
 function utility_pro_add_nav_secondary_skip_link($links): array
 {

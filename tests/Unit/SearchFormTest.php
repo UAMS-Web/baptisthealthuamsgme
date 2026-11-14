@@ -118,6 +118,9 @@ it('builds the id from the searchform prefix and a more-entropy uniqid', functio
 it('returns one string by key, or every string for all and for an unknown key', function (): void {
     $form = new class(['label' => 'Find']) extends Utility_Pro_Search_Form
     {
+        /**
+         * @return string|array<string, string>
+         */
         public function read(string $key = 'all'): string|array
         {
             return $this->strings($key);

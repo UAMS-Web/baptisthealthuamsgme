@@ -36,7 +36,13 @@ function mpp_leadership_page(): void
 
 }
 
-function mpp_body_class($classes)
+/**
+ * Add the leadership page body class.
+ *
+ * @param  array<int, string>  $classes  Existing body classes.
+ * @return array<int, string> Amended body classes.
+ */
+function mpp_body_class(array $classes): array
 {
 
     $classes[] = 'mpp-home';
