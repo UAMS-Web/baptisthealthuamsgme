@@ -83,6 +83,13 @@ it('prefills the input with the filtered search query', function (): void {
     expect((new Utility_Pro_Search_Form)->get_form())->toContain('value="heart care"');
 });
 
+it('leaves the value empty when the filter returns something other than a string', function (): void {
+    when('get_search_query')->justReturn('heart');
+    expectApplied('the_search_query')->once()->with('heart')->andReturn(['heart care']);
+
+    expect((new Utility_Pro_Search_Form)->get_form())->toContain('value=""');
+});
+
 it('leaves the value empty when there is no search query', function (): void {
     expect((new Utility_Pro_Search_Form)->get_form())->toContain('value=""');
 });

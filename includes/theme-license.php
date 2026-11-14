@@ -65,5 +65,8 @@ function utility_pro_move_license_page_menu_item(): void
         return;
     }
 
-    add_submenu_page('genesis', $page[3], $page[0], $page[1], $page[2], [$updater, 'license_page']);
+    // The removed item is [menu title, capability, slug, page title, ...]; WordPress types its fields as mixed.
+    $fields = array_map(static fn (mixed $field): string => is_string($field) ? $field : '', array_pad(array_slice($page, 0, 4), 4, ''));
+
+    add_submenu_page('genesis', $fields[3], $fields[0], $fields[1], $fields[2], [$updater, 'license_page']);
 }

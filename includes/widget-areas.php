@@ -59,7 +59,10 @@ function utility_pro_register_widget_areas(): void
 
     $widget_areas = apply_filters('utility_pro_default_widget_areas', $widget_areas);
 
-    foreach ($widget_areas as $widget_area) {
-        genesis_register_sidebar($widget_area);
+    // A filter may return anything; register only the areas that are arrays.
+    foreach (is_array($widget_areas) ? $widget_areas : [] as $widget_area) {
+        if (is_array($widget_area)) {
+            genesis_register_sidebar($widget_area);
+        }
     }
 }

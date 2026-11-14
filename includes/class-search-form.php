@@ -136,6 +136,7 @@ class Utility_Pro_Search_Form
     protected function get_input(): string
     {
         $value = get_search_query() ? apply_filters('the_search_query', get_search_query()) : '';
+        $value = is_string($value) ? $value : '';
 
         return sprintf(
             '<input type="search" name="s" id="%s" value="%s" placeholder="%s" autocomplete="off" />',

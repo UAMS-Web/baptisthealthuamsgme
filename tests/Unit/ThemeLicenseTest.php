@@ -23,6 +23,21 @@ it('moves the license page from Appearance to the Genesis menu', function (): vo
     utility_pro_move_license_page_menu_item();
 });
 
+it('passes on only the first four fields of the removed item, and an empty string for a missing or non-string one', function (): void {
+    expect('remove_submenu_page')->times(3)->andReturn(
+        ['Menu title', 'manage_options', 'utility-pro-license', 'Page title', 'extra', 'more'],
+        ['Menu title', 'manage_options', 'utility-pro-license'],
+        [null, 'manage_options', 'utility-pro-license', 'Page title'],
+    );
+    expect('add_submenu_page')->once()->with('genesis', 'Page title', 'Menu title', 'manage_options', 'utility-pro-license', [$GLOBALS['updater'], 'license_page']);
+    expect('add_submenu_page')->once()->with('genesis', '', 'Menu title', 'manage_options', 'utility-pro-license', [$GLOBALS['updater'], 'license_page']);
+    expect('add_submenu_page')->once()->with('genesis', 'Page title', '', 'manage_options', 'utility-pro-license', [$GLOBALS['updater'], 'license_page']);
+
+    utility_pro_move_license_page_menu_item();
+    utility_pro_move_license_page_menu_item();
+    utility_pro_move_license_page_menu_item();
+});
+
 it('moves nothing when the Appearance item is not there', function (): void {
     expect('remove_submenu_page')->once()->with('themes.php', 'utility-pro-license')->andReturn(false);
     expect('add_submenu_page')->never();
