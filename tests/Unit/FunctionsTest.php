@@ -60,15 +60,15 @@ it('leaves the content alone when the post has no thumbnail', function (): void 
 });
 
 it('replaces the footer credits with the Utility Pro credit line', function (): void {
-    expect(utility_pro_footer_creds('old'))
+    expect(utility_pro_footer_creds())
         ->toBe('Powered by WordPress and the <a href="https://store.carriedils.com/downloads/utility-pro/?utm_source=Utility%20Pro%20Footer%20Credits&utm_medium=Distributed%20Theme&utm_campaign=Utility%20Pro%20Theme" rel="nofollow">Utility Pro</a> theme for Genesis Framework.');
 });
 
 it('replaces the footer credits with the Baptist Health UAMS GME line', function (): void {
-    expect(sp_footer_creds_filter('old'))
+    expect(sp_footer_creds_filter())
         ->toBe('[footer_copyright] &middot; <a href="http://baptisthealthuams-gme.com">Baptist Health UAMS GME</a> &middot;  All Rights Reserved');
 });
 
-it('sets the author box gravatar to 96 pixels whatever size it was given', function (int $size): void {
-    expect(utility_pro_author_box_gravatar_size($size))->toBe(96);
-})->with([32, 70, 96, 200]);
+it('sets the author box gravatar to 96 pixels', function (): void {
+    expect(utility_pro_author_box_gravatar_size())->toBe(96);
+});

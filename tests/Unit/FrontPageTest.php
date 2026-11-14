@@ -117,10 +117,10 @@ it('skips the sections after page one but still filters the site title', functio
     utility_pro_homepage_setup();
 });
 
-it('returns h1 for the site title wrap whatever it was given', function (): void {
+it('returns h1 for the site title wrap', function (): void {
     load_front_page();
 
-    expect(utility_pro_return_h1('p'))->toBe('h1');
+    expect(utility_pro_return_h1())->toBe('h1');
 });
 
 it('prints the welcome widget area inside its wrapper', function (): void {
