@@ -55,6 +55,8 @@ jobs:
       pest-command: composer test:unit
       floor-lint: true
       floor-lint-php: '8.2'
+      download-archive: true
+      download-archive-command: node .claude/skills/download-archive-check/check-download-archive.mjs
       floor-lint-command: >-
         find . -name '*.php' -not -path './vendor/*' -not -path './tests/*' -not -path './.claude/*'
         -not -path './.agents/*' -not -path './.cursor/*' -not -path './includes/vendors/*'

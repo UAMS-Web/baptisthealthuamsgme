@@ -1,2 +1,21 @@
-/composer.json export-ignore
-/composer.lock export-ignore
+# The GitHub download is `git archive` of the tag, so it holds every file in the
+# repository unless this file leaves it out. Keep-list: exclude every top-level
+# entry, then put back only what the theme runs
+# (the keep-the-download-to-what-runs rule). A new runtime file or folder at the top
+# level needs its own `-export-ignore` line in the same change; the download-archive
+# check fails on anything extra.
+/* export-ignore
+/.* export-ignore
+
+/functions.php -export-ignore
+/front-page.php -export-ignore
+/page_landing.php -export-ignore
+/page_leadership.php -export-ignore
+/page_news.php -export-ignore
+/style.css -export-ignore
+/style-rtl.css -export-ignore
+/screenshot.png -export-ignore
+/includes -export-ignore
+/images -export-ignore
+/js -export-ignore
+/languages -export-ignore
