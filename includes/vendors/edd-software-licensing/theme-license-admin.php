@@ -14,6 +14,8 @@ class EDD_Theme_Updater_Admin {
 	 * @type string
 	 */
 	 protected $remote_api_url = null;
+	 // Local patch: declared so PHP 8.2+ raises no dynamic-property deprecation (UAMS-Web/baptisthealthuamsgme#52).
+	 protected $item_name = null;
 	 protected $theme_slug = null;
 	 protected $version = null;
 	 protected $author = null;

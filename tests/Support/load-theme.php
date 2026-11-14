@@ -59,16 +59,7 @@ function load_theme(): void
     ];
 
     // Run the setup function with is_admin() true, so it includes the two admin-only files.
-    // PHP 8.2+ deprecates the dynamic properties the vendored updater sets; swallow only those, from that file.
-    set_error_handler(static fn (int $level, string $message, string $file): bool => $level === E_DEPRECATED
-        && str_contains($message, 'dynamic property')
-        && str_contains($file, 'includes/vendors/'), E_DEPRECATED);
-
-    try {
-        utility_pro_setup();
-    } finally {
-        restore_error_handler();
-    }
+    utility_pro_setup();
 
     $registered = [
         ...$registered,
