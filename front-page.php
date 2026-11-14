@@ -70,7 +70,7 @@ function utility_pro_homepage_setup(): void
  * @see http://www.billerickson.net/genesis-h1-front-page/
  * @since 1.2.0
  */
-function utility_pro_return_h1($wrap): string
+function utility_pro_return_h1(): string
 {
     return 'h1';
 }
