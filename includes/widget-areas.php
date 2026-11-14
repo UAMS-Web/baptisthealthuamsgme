@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+// Scratch change for the #15 pull-request mutation check; never merged.
 /**
  * Utility Pro.
  *
