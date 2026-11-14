@@ -1,0 +1,15 @@
+{
+    "name": "uams-web/baptisthealthuamsgme",
+    "description": "Development-only Composer file for the Baptist Health UAMS GME theme. It declares the supported PHP floor and the development PHP; the theme itself loads no Composer package.",
+    "type": "wordpress-theme",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.2"
+    },
+    "config": {
+        "platform": {
+            "php": "8.4.27"
+        },
+        "sort-packages": true
+    }
+}
