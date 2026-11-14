@@ -30,7 +30,7 @@ add_action('genesis_setup', 'utility_pro_setup', 15);
  *
  * @since 1.0.0
  */
-function utility_pro_setup()
+function utility_pro_setup(): void
 {
 
     define('CHILD_THEME_NAME', 'utility-pro');
@@ -143,7 +143,7 @@ function utility_pro_setup()
  *
  * @since 1.0.0
  */
-function utility_pro_add_bar()
+function utility_pro_add_bar(): void
 {
 
     genesis_widget_area('utility-bar', [
@@ -187,7 +187,7 @@ add_filter('genesis_footer_creds_text', 'utility_pro_footer_creds');
  * @param  string  $creds  Existing credentials.
  * @return string Footer credentials.
  */
-function utility_pro_footer_creds($creds)
+function utility_pro_footer_creds($creds): string
 {
 
     return 'Powered by WordPress and the <a href="https://store.carriedils.com/downloads/utility-pro/?utm_source=Utility%20Pro%20Footer%20Credits&utm_medium=Distributed%20Theme&utm_campaign=Utility%20Pro%20Theme" rel="nofollow">Utility Pro</a> theme for Genesis Framework.';
@@ -202,7 +202,7 @@ add_filter('genesis_author_box_gravatar_size', 'utility_pro_author_box_gravatar_
  * @param  int  $size  Existing pixel size of gravatar.
  * @return int Pixel size of gravatar.
  */
-function utility_pro_author_box_gravatar_size($size)
+function utility_pro_author_box_gravatar_size($size): int
 {
     return 96;
 }
@@ -221,9 +221,7 @@ include get_stylesheet_directory().'/includes/theme-config.php';
 
 // * Change the footer text
 add_filter('genesis_footer_creds_text', 'sp_footer_creds_filter');
-function sp_footer_creds_filter($creds)
+function sp_footer_creds_filter($creds): string
 {
-    $creds = '[footer_copyright] &middot; <a href="http://baptisthealthuams-gme.com">Baptist Health UAMS GME</a> &middot;  All Rights Reserved';
-
-    return $creds;
+    return '[footer_copyright] &middot; <a href="http://baptisthealthuams-gme.com">Baptist Health UAMS GME</a> &middot;  All Rights Reserved';
 }

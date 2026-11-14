@@ -15,7 +15,7 @@ add_action('genesis_meta', 'mpp_leadership_page');
 /**
  * Add widget support for homepage. If no widgets active, display the default loop.
  */
-function mpp_leadership_page()
+function mpp_leadership_page(): void
 {
 
     if (is_active_sidebar('page-leadership')) {
@@ -45,7 +45,7 @@ function mpp_body_class($classes)
 
 }
 
-function mpp_leadership_page_widget()
+function mpp_leadership_page_widget(): void
 {
 
     genesis_widget_area('page-leadership', [

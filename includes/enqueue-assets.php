@@ -16,7 +16,7 @@ add_action('wp_enqueue_scripts', 'utility_pro_enqueue_assets');
  *
  * @since 1.0.0
  */
-function utility_pro_enqueue_assets()
+function utility_pro_enqueue_assets(): void
 {
 
     // Replace style.css with style-rtl.css for RTL languages.

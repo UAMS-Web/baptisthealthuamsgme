@@ -15,10 +15,8 @@ add_action('genesis_loop', 'prefix_do_loop');
  * Outputs a custom loop
  *
  * @global mixed $paged current page number if paginated
- *
- * @return void
  */
-function prefix_do_loop()
+function prefix_do_loop(): void
 {
 
     global $paged;
@@ -35,4 +33,5 @@ function prefix_do_loop()
 
     genesis_custom_loop($args);
 }
+
 genesis();

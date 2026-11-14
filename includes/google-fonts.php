@@ -13,7 +13,7 @@ add_action('wp_enqueue_scripts', 'utility_pro_enqueue_fonts');
  *
  * @since 1.0.0
  */
-function utility_pro_enqueue_fonts()
+function utility_pro_enqueue_fonts(): void
 {
     wp_enqueue_style('utility-pro-fonts', utility_pro_fonts_url(), [], null);
 }

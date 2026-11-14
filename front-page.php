@@ -14,7 +14,7 @@ add_action('genesis_meta', 'utility_pro_homepage_setup');
  *
  * @since 1.0.0
  */
-function utility_pro_homepage_setup()
+function utility_pro_homepage_setup(): void
 {
 
     $home_sidebars = [
@@ -70,7 +70,7 @@ function utility_pro_homepage_setup()
  * @see http://www.billerickson.net/genesis-h1-front-page/
  * @since 1.2.0
  */
-function utility_pro_return_h1($wrap)
+function utility_pro_return_h1($wrap): string
 {
     return 'h1';
 }
@@ -80,7 +80,7 @@ function utility_pro_return_h1($wrap)
  *
  * @since 1.0.0
  */
-function utility_pro_add_home_welcome()
+function utility_pro_add_home_welcome(): void
 {
 
     genesis_widget_area(
@@ -97,7 +97,7 @@ function utility_pro_add_home_welcome()
  *
  * @since 1.0.0
  */
-function utility_pro_add_home_gallery()
+function utility_pro_add_home_gallery(): void
 {
 
     printf('<div %s>', genesis_attr('home-gallery'));
@@ -143,7 +143,7 @@ function utility_pro_add_home_gallery()
  *
  * @since 1.0.0
  */
-function utility_pro_add_call_to_action()
+function utility_pro_add_call_to_action(): void
 {
 
     genesis_widget_area(
@@ -160,7 +160,7 @@ function utility_pro_add_call_to_action()
  *
  * @since 1.0.0
  */
-function utility_pro_front_loop()
+function utility_pro_front_loop(): void
 {
     global $query_args;
     genesis_custom_loop(wp_parse_args($query_args, ['post_type' => 'post', 'paged' => get_query_var('page')]));

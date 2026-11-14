@@ -21,7 +21,7 @@ declare(strict_types=1);
 /**
  * Include the TGM_Plugin_Activation class.
  */
-require_once dirname(__FILE__).'/vendors/tgm-plugin-activation/class-tgm-plugin-activation.php';
+require_once __DIR__.'/vendors/tgm-plugin-activation/class-tgm-plugin-activation.php';
 
 add_action('tgmpa_register', 'utility_pro_register_required_plugins');
 /**
@@ -33,7 +33,7 @@ add_action('tgmpa_register', 'utility_pro_register_required_plugins');
  * This function is hooked into tgmpa_init, which is fired within the
  * TGM_Plugin_Activation class constructor.
  */
-function utility_pro_register_required_plugins()
+function utility_pro_register_required_plugins(): void
 {
 
     /**

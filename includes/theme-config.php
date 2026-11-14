@@ -57,7 +57,7 @@ add_filter('genesis_skip_links_output', 'utility_pro_add_nav_secondary_skip_link
  * @param array Default skiplinks.
  * @return array Amended markup for Genesis skip links.
  */
-function utility_pro_add_nav_secondary_skip_link($links)
+function utility_pro_add_nav_secondary_skip_link($links): array
 {
     $new_links = $links;
     array_splice($new_links, 1);
@@ -79,7 +79,7 @@ function utility_pro_add_nav_secondary_skip_link($links)
  *
  * @return string Search form markup.
  */
-function utility_pro_get_search_form()
+function utility_pro_get_search_form(): string
 {
     $search = new Utility_Pro_Search_Form;
 
@@ -95,7 +95,7 @@ function utility_pro_get_search_form()
  * @since  1.0.0
  * @see the_posts_pagination()
  */
-function utility_pro_post_pagination()
+function utility_pro_post_pagination(): void
 {
     $args = [
         'mid_size' => 2,

@@ -86,7 +86,7 @@ class Utility_Pro_Search_Form
      *
      * @return string Form markup.
      */
-    public function get_form()
+    public function get_form(): string
     {
         return sprintf(
             '<form method="get" action="%s" role="search" class="search-form">%s</form>',
@@ -102,7 +102,7 @@ class Utility_Pro_Search_Form
      *
      * @return string Label markup.
      */
-    protected function get_label()
+    protected function get_label(): string
     {
         return sprintf(
             '<label for="%s" class="screen-reader-text">%s</label>',
@@ -118,7 +118,7 @@ class Utility_Pro_Search_Form
      *
      * @return string Input field markup.
      */
-    protected function get_input()
+    protected function get_input(): string
     {
         $value = get_search_query() ? apply_filters('the_search_query', get_search_query()) : '';
 
@@ -137,7 +137,7 @@ class Utility_Pro_Search_Form
      *
      * @return string Button markup.
      */
-    protected function get_button()
+    protected function get_button(): string
     {
         return sprintf(
             '<button type="submit" aria-label="%s"><span class="search-button-text">%s</span></button>',
@@ -155,7 +155,7 @@ class Utility_Pro_Search_Form
      */
     protected function get_id()
     {
-        if (! isset($this->unique_id)) {
+        if ($this->unique_id === null) {
             $this->unique_id = 'searchform-'.uniqid('', true);
         }
 

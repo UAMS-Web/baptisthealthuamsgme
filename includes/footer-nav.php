@@ -16,7 +16,7 @@ declare(strict_types=1);
  *
  * @since  1.0.0
  */
-function utility_pro_do_footer_nav()
+function utility_pro_do_footer_nav(): void
 {
 
     genesis_nav_menu(

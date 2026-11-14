@@ -16,7 +16,7 @@ declare(strict_types=1);
  *
  * @since  1.0.0
  */
-function utility_pro_register_widget_areas()
+function utility_pro_register_widget_areas(): void
 {
 
     $widget_areas = [

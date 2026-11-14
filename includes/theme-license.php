@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 // Includes the files needed for the theme updater.
 if (! class_exists('EDD_Theme_Updater_Admin')) {
-    include dirname(__FILE__).'/vendors/edd-software-licensing/theme-license-admin.php';
+    include __DIR__.'/vendors/edd-software-licensing/theme-license-admin.php';
 }
 
 // Loads the updater classes.
@@ -55,7 +55,7 @@ add_action('admin_menu', 'utility_pro_move_license_page_menu_item', 12);
  *
  * @author Gary Jones
  */
-function utility_pro_move_license_page_menu_item()
+function utility_pro_move_license_page_menu_item(): void
 {
     global $updater;
     $page = remove_submenu_page('themes.php', 'utility-pro-license');
