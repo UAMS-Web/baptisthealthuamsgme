@@ -13,7 +13,7 @@ use function Brain\Monkey\Functions\stubTranslationFunctions;
 use function Brain\Monkey\Functions\when;
 
 beforeEach(function (): void {
-    $GLOBALS['tgmpa_calls'] = [];
+    Theme_Stub_Calls::$tgmpa = [];
     stubTranslationFunctions();
     when('_x')->returnArg(1);
     when('_n_noop')->alias(fn (string $single, string $plural): array => [$single, $plural]);
@@ -22,8 +22,8 @@ beforeEach(function (): void {
 it('registers the three recommended plugins', function (): void {
     utility_pro_register_required_plugins();
 
-    expect($GLOBALS['tgmpa_calls'])->toHaveCount(1)
-        ->and($GLOBALS['tgmpa_calls'][0][0])->toBe([
+    expect(Theme_Stub_Calls::$tgmpa)->toHaveCount(1)
+        ->and(Theme_Stub_Calls::$tgmpa[0][0])->toBe([
             ['name' => 'Better Font Awesome', 'slug' => 'better-font-awesome', 'required' => false],
             ['name' => 'Genesis E-News Extended', 'slug' => 'genesis-enews-extended', 'required' => false],
             ['name' => 'WP Accessibility', 'slug' => 'wp-accessibility', 'required' => false],
@@ -33,7 +33,7 @@ it('registers the three recommended plugins', function (): void {
 it('passes the installer configuration', function (): void {
     utility_pro_register_required_plugins();
 
-    $config = $GLOBALS['tgmpa_calls'][0][1];
+    $config = Theme_Stub_Calls::$tgmpa[0][1];
 
     expect($config)
         ->toMatchArray([
@@ -54,7 +54,9 @@ it('passes the installer configuration', function (): void {
             'notice_can_activate_required', 'notice_can_activate_recommended', 'notice_cannot_activate',
             'notice_ask_to_update', 'notice_cannot_update',
         ])
-        ->and($config['strings']['page_title'])->toBe('Install Required Plugins')
-        ->and($config['strings']['menu_title'])->toBe('Install Plugins')
-        ->and($config['strings']['nag_type'])->toBe('updated');
+        ->and($config['strings'])->toMatchArray([
+            'page_title' => 'Install Required Plugins',
+            'menu_title' => 'Install Plugins',
+            'nag_type' => 'updated',
+        ]);
 });
