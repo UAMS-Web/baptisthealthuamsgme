@@ -91,7 +91,7 @@ function load_theme(): void
 
     expect(CHILD_THEME_NAME)->toBe('utility-pro')
         ->and(CHILD_THEME_URL)->toBe('https://store.carriedils.com/utility-pro')
-        ->and(CHILD_THEME_VERSION)->toBe('1.3.1')
+        ->and(CHILD_THEME_VERSION)->toBe('1.3.2')
         ->and($calls['supports'])->toBe([
             ['html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']],
             ['genesis-responsive-viewport'],
@@ -134,7 +134,7 @@ function load_theme(): void
     expect($read('remote_api_url'))->toBe('https://store.carriedils.com')
         ->and($read('item_name'))->toBe('Utility Pro')
         ->and($read('theme_slug'))->toBe('utility-pro')
-        ->and($read('version'))->toBe('1.3.1')
+        ->and($read('version'))->toBe('1.3.2')
         ->and($read('author'))->toBe('Carrie Dils')
         ->and($read('strings'))->toHaveCount(21)->toMatchArray([
             'theme-license' => 'Utility Pro License',
