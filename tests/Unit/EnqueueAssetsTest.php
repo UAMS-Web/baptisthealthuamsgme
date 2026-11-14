@@ -3,10 +3,8 @@
 /**
  * Unit tests for utility_pro_enqueue_assets() in includes/enqueue-assets.php.
  *
- * Mutation (macOS, working evidence only): 44 mutants tested, all killed. The
- * file-scope `add_action()` registration is unreachable from the Unit layer
- * (the bootstrap runs it inside a discarded Brain Monkey session), so its mutant
- * reports as uncovered; every killable mutant is dead.
+ * The file-scope hook registrations are asserted by `load_theme()` in
+ * tests/Support/load-theme.php, which every test runs. Every mutant is killed.
  */
 
 declare(strict_types=1);
