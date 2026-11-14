@@ -16,5 +16,5 @@ it('replaces the footer credits with the Baptist Health UAMS GME line', function
     expect($credits)
         ->toContain('Baptist Health UAMS GME')
         ->toContain('[footer_copyright]')
-        ->not->toContain('Existing credits');
+        ->not()->toContain('Existing credits');
 });

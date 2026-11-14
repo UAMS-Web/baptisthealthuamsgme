@@ -54,7 +54,7 @@ add_filter('genesis_skip_links_output', 'utility_pro_add_nav_secondary_skip_link
  *
  * @since 1.2.1
  *
- * @param array Default skiplinks.
+ * @param  array<string, string>  $links  Default skiplinks.
  * @return array Amended markup for Genesis skip links.
  */
 function utility_pro_add_nav_secondary_skip_link($links): array
