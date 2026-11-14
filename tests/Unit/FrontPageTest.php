@@ -181,11 +181,19 @@ it('prints the call to action widget area inside its wrapper', function (): void
 it('runs a custom posts loop with the query args merged over the defaults', function (): void {
     load_front_page();
     $GLOBALS['query_args'] = ['posts_per_page' => 3];
-    when('wp_parse_args')->alias(fn (array $args, array $defaults): array => array_merge($defaults, $args));
     when('get_query_var')->justReturn(4);
     Functions\expect('genesis_custom_loop')
         ->once()
         ->with(['post_type' => 'post', 'paged' => 4, 'posts_per_page' => 3]);
+
+    utility_pro_front_loop();
+});
+
+it('runs the custom posts loop with the defaults when there are no query args', function (): void {
+    load_front_page();
+    unset($GLOBALS['query_args']);
+    when('get_query_var')->justReturn(4);
+    Functions\expect('genesis_custom_loop')->once()->with(['post_type' => 'post', 'paged' => 4]);
 
     utility_pro_front_loop();
 });

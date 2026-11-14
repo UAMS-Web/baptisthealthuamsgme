@@ -164,7 +164,8 @@ function utility_pro_add_call_to_action(): void
 function utility_pro_front_loop(): void
 {
     global $query_args;
-    genesis_custom_loop(wp_parse_args($query_args, ['post_type' => 'post', 'paged' => get_query_var('page')]));
+    $custom_args = is_array($query_args) ? $query_args : [];
+    genesis_custom_loop(array_merge(['post_type' => 'post', 'paged' => get_query_var('page')], $custom_args));
 }
 
 genesis();

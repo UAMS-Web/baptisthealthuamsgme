@@ -59,6 +59,27 @@ it('registers whatever list the utility_pro_default_widget_areas filter returns'
     utility_pro_register_widget_areas();
 });
 
+it('registers nothing when the filter returns something other than a list', function (): void {
+    when('__')->returnArg();
+    when('_x')->returnArg();
+
+    expectApplied('utility_pro_default_widget_areas')->once()->andReturn('none');
+    Functions\expect('genesis_register_sidebar')->never();
+
+    utility_pro_register_widget_areas();
+});
+
+it('skips a list entry that is not an area', function (): void {
+    when('__')->returnArg();
+    when('_x')->returnArg();
+
+    $area = ['id' => 'only-one', 'name' => 'Only', 'description' => 'Just one'];
+    expectApplied('utility_pro_default_widget_areas')->once()->andReturn(['not an area', $area]);
+    Functions\expect('genesis_register_sidebar')->once()->with($area);
+
+    utility_pro_register_widget_areas();
+});
+
 it('hands the filter the default list of seven areas', function (): void {
     when('__')->returnArg();
     when('_x')->returnArg();
