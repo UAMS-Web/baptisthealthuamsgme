@@ -3,10 +3,8 @@
 /**
  * Unit tests for the footer navigation callbacks in includes/footer-nav.php.
  *
- * Mutation (macOS, working evidence only): 8 mutants tested, all killed. The two
- * file-scope `add_filter()` registrations are unreachable from the Unit
- * layer (the bootstrap runs them inside a discarded Brain Monkey session), so
- * their two mutants report as uncovered; every killable mutant is dead.
+ * The file-scope hook registrations are asserted by `load_theme()` in
+ * tests/Support/load-theme.php, which every test runs. Every mutant is killed.
  */
 
 declare(strict_types=1);

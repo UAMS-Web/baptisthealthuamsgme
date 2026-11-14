@@ -3,14 +3,8 @@
 /**
  * Unit tests for the filter callbacks and helpers in includes/theme-config.php.
  *
- * Mutation (macOS, working evidence only): 23 mutants tested, all killed. Four
- * mutants are uncovered and cannot be reached from the Unit layer: removing each
- * of the four file-scope `add_filter()` registrations (`widget_text`,
- * `theme_page_templates`, `genesis_attr_nav-footer`, `genesis_skip_links_output`).
- * The Unit bootstrap loads the file inside a Brain Monkey session that is
- * discarded, so no test runs those lines, and a `@pest-mutate-ignore` above a
- * statement cannot suppress a mutator that targets the statement itself. Every
- * killable mutant is dead.
+ * The file-scope hook registrations are asserted by `load_theme()` in
+ * tests/Support/load-theme.php, which every test runs. Every mutant is killed.
  */
 
 declare(strict_types=1);

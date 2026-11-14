@@ -11,10 +11,6 @@
 
 declare(strict_types=1);
 
-use function Brain\Monkey\Functions\when;
-use function Brain\Monkey\setUp;
-use function Brain\Monkey\tearDown;
-
 require_once __DIR__.'/../vendor/autoload.php';
 
 require_once __DIR__.'/../vendor/antecedent/patchwork/Patchwork.php';
@@ -24,23 +20,8 @@ if (! defined('ABSPATH')) {
 }
 
 /*
- * functions.php registers hooks and calls WordPress at file scope, so it is
- * loaded inside one Brain Monkey session with what it calls at load time
- * stubbed. The functions it defines outlive the session; the hooks it
- * registered are discarded by tearDown(), so every test starts clean, and hook
- * registration is asserted in the Integration suite.
- *
- * Add a stub here for each WordPress function the theme's functions.php calls
- * at file scope (wp_get_theme(), get_stylesheet_directory_uri(), ...).
+ * functions.php is not loaded here. load_theme() in tests/Support/load-theme.php loads it inside the first
+ * test that runs, so Pest attributes its file-scope lines to a test and a mutation run can cover them.
  */
-setUp();
-
-when('get_template_directory')->justReturn(dirname(__DIR__));
-when('get_stylesheet_directory')->justReturn(dirname(__DIR__));
-when('load_child_theme_textdomain')->justReturn(true);
-
-require_once __DIR__.'/../functions.php';
-
-tearDown();
 
 // cspell:ignore ABSPATH stylesheet

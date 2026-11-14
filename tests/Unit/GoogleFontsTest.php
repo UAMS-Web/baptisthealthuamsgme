@@ -6,13 +6,8 @@
  * The translators' "on"/"off" switches are WordPress `_x()` calls; each test
  * answers them per font so every branch of the URL builder runs.
  *
- * Mutation (macOS, working evidence only): 13 mutants tested, all killed. One
- * mutant is uncovered and cannot be reached from the Unit layer: removing the
- * file-scope `add_action('wp_enqueue_scripts', ...)` registration. The Unit
- * bootstrap loads the file inside a Brain Monkey session that is discarded, so no
- * test runs that line, and a `@pest-mutate-ignore` above a statement cannot
- * suppress a mutator that targets the statement itself. Every killable mutant is
- * dead.
+ * The file-scope hook registrations are asserted by `load_theme()` in
+ * tests/Support/load-theme.php, which every test runs. Every mutant is killed.
  */
 
 declare(strict_types=1);
