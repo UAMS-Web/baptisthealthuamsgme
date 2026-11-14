@@ -12,8 +12,11 @@ name: CI
 # variable to `false` skips the chain and bills no minutes. This repository is public, where
 # minutes are free and the variable is unset, so the chain runs on every pull request.
 #
-# Mutation is off (`mutate: false`) until its own ticket (UAMS-Web/baptisthealthuamsgme#15); the
-# `mutate-ignore` job still audits annotations over `includes` and `tests`.
+# Mutation is on (UAMS-Web/baptisthealthuamsgme#15). A pull request or push mutates the changed PHP
+# files under `mutate-paths`; a manual run mutates the files the `composer mutate` script names. The
+# `mutate-paths` entry `includes` also matches third-party `includes/vendors`, which the script leaves
+# out, so a change there would be selected on a pull request. The `mutate-ignore` job audits
+# annotations over `includes` and `tests`.
 
 on:
   pull_request:
@@ -49,7 +52,8 @@ jobs:
     if: vars.RUN_REMOTE_CI != 'false'
     with:
       linux-only: true
-      mutate: false
+      mutate: true
+      mutate-paths: functions.php front-page.php page_landing.php page_leadership.php page_news.php includes
       mutate-ignore: true
       mutate-ignore-paths: includes tests
       pest-command: composer test:unit
