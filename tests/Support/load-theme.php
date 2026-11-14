@@ -28,8 +28,7 @@ function load_theme(): void
     require_once __DIR__.'/theme-stubs.php';
 
     $GLOBALS['theme_loaded'] = true;
-    $GLOBALS['theme_calls'] = [];
-    $GLOBALS['tgmpa_calls'] = [];
+    Theme_Stub_Calls::reset();
 
     $root = dirname(__DIR__, 2);
 
@@ -78,8 +77,6 @@ function load_theme(): void
         expect($found)->toBe($priority, "{$hook} -> {$callback}");
     }
 
-    $calls = $GLOBALS['theme_calls'];
-
     // The name and URL are defined at run time by functions.php, so they are read through constant().
     $themeConstant = static function (string $name): string {
         $value = constant($name);
@@ -90,7 +87,7 @@ function load_theme(): void
     expect([$themeConstant('CHILD_THEME_NAME'), $themeConstant('CHILD_THEME_URL')])
         ->toBe(['utility-pro', 'https://store.carriedils.com/utility-pro'])
         ->and(CHILD_THEME_VERSION)->toBe('1.3.2')
-        ->and($calls['supports'])->toBe([
+        ->and(Theme_Stub_Calls::$supports)->toBe([
             ['html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']],
             ['genesis-responsive-viewport'],
             ['custom-background', ['wp-head-callback' => '__return_false']],
@@ -109,24 +106,29 @@ function load_theme(): void
                 'footer' => 'Footer Navigation Menu',
             ]],
         ])
-        ->and(array_slice($calls['sidebars'], 0, 1))->toBe([[
+        ->and(array_slice(Theme_Stub_Calls::$sidebars, 0, 1))->toBe([[
             'id' => 'page-leadership',
             'name' => 'Page - Leadership',
             'description' => 'This is the leadership section to the Leadership Page.',
         ]])
-        ->and(array_column($calls['sidebars'], 'id'))->toHaveCount(8)
-        ->and($calls['sizes'])->toBe([
+        ->and(array_column(Theme_Stub_Calls::$sidebars, 'id'))->toHaveCount(8)
+        ->and(Theme_Stub_Calls::$sizes)->toBe([
             ['leadership', 210, 280, true],
             ['feature-large', 960, 330, true],
         ])
-        ->and($calls['unregistered_sidebars'])->toBe(['sidebar-alt'])
-        ->and($calls['layouts'])->toBe(['content-sidebar-sidebar', 'sidebar-content-sidebar', 'sidebar-sidebar-content']);
+        ->and(Theme_Stub_Calls::$unregisteredSidebars)->toBe(['sidebar-alt'])
+        ->and(Theme_Stub_Calls::$layouts)->toBe(['content-sidebar-sidebar', 'sidebar-content-sidebar', 'sidebar-sidebar-content']);
 
     // The license updater is the real vendored class, built with this theme's store details.
-    expect($GLOBALS['updater'])->toBeInstanceOf(EDD_Theme_Updater_Admin::class);
+    $updater = $GLOBALS['updater'];
+    expect($updater)->toBeInstanceOf(EDD_Theme_Updater_Admin::class);
+
+    if (! $updater instanceof EDD_Theme_Updater_Admin) {
+        throw new LogicException('The theme did not build the license updater.');
+    }
 
     // Its properties are protected, so read them all through the object's own scope.
-    $properties = (fn (): array => get_object_vars($this))->call($GLOBALS['updater']);
+    $properties = (fn (): array => get_object_vars($this))->call($updater);
     $read = static fn (string $property): mixed => $properties[$property] ?? null;
 
     expect($read('remote_api_url'))->toBe('https://store.carriedils.com')

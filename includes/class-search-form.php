@@ -28,7 +28,7 @@ class Utility_Pro_Search_Form
     /**
      * Holds internationalized strings.
      *
-     * @var array<string, string>
+     * @var array<string, mixed>
      */
     protected $strings;
 
@@ -37,7 +37,7 @@ class Utility_Pro_Search_Form
      *
      * @since 1.0.0
      *
-     * @param  array<string, string>  $strings  Optional. Array of strings. Default is an empty array.
+     * @param  array<string, mixed>  $strings  Optional. Array of strings. Default is an empty array.
      */
     public function __construct(array $strings = [])
     {
@@ -83,7 +83,7 @@ class Utility_Pro_Search_Form
      * @since 1.0.0
      *
      * @param  string  $key  Optional. Identifier for which string to return. Default is 'all'.
-     * @return string|array<string, string> String if key is not 'all', and key exists. Array of all strings otherwise.
+     * @return mixed The string if key is not 'all' and the key exists (a filter may supply any type). Array of all strings otherwise.
      */
     protected function strings($key = 'all')
     {

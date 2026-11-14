@@ -4,10 +4,46 @@
  * Plain stand-ins for what the theme's load-time code calls and the Unit suite has no WordPress to supply.
  *
  * They are ordinary functions and classes, not Brain Monkey stubs, so a test may still mock any of them
- * with Brain Monkey after the loader has run. The ones that record keep their calls in `$GLOBALS`.
+ * with Brain Monkey after the loader has run. The ones that record keep their calls on `Theme_Stub_Calls`.
  */
 
 declare(strict_types=1);
+
+if (! class_exists('Theme_Stub_Calls')) {
+    /**
+     * What the recording stand-ins were called with, typed so the tests read it without `mixed`.
+     */
+    final class Theme_Stub_Calls
+    {
+        /** @var list<array<int|string, mixed>> */
+        public static array $supports = [];
+
+        /** @var list<array<string, mixed>> */
+        public static array $sidebars = [];
+
+        /** @var list<array{string, int, int, bool}> */
+        public static array $sizes = [];
+
+        /** @var list<string> */
+        public static array $unregisteredSidebars = [];
+
+        /** @var list<string> */
+        public static array $layouts = [];
+
+        /** @var list<array{array<int, array<string, mixed>>, array<string, mixed>}> */
+        public static array $tgmpa = [];
+
+        public static function reset(): void
+        {
+            self::$supports = [];
+            self::$sidebars = [];
+            self::$sizes = [];
+            self::$unregisteredSidebars = [];
+            self::$layouts = [];
+            self::$tgmpa = [];
+        }
+    }
+}
 
 if (! function_exists('is_admin')) {
     function is_admin(): bool
@@ -19,7 +55,7 @@ if (! function_exists('is_admin')) {
 if (! function_exists('add_theme_support')) {
     function add_theme_support(string $feature, mixed ...$args): void
     {
-        $GLOBALS['theme_calls']['supports'][] = [$feature, ...$args];
+        Theme_Stub_Calls::$supports[] = [$feature, ...$args];
     }
 }
 
@@ -29,28 +65,28 @@ if (! function_exists('genesis_register_sidebar')) {
      */
     function genesis_register_sidebar(array $sidebar): void
     {
-        $GLOBALS['theme_calls']['sidebars'][] = $sidebar;
+        Theme_Stub_Calls::$sidebars[] = $sidebar;
     }
 }
 
 if (! function_exists('add_image_size')) {
     function add_image_size(string $name, int $width, int $height, bool $crop): void
     {
-        $GLOBALS['theme_calls']['sizes'][] = [$name, $width, $height, $crop];
+        Theme_Stub_Calls::$sizes[] = [$name, $width, $height, $crop];
     }
 }
 
 if (! function_exists('unregister_sidebar')) {
     function unregister_sidebar(string $id): void
     {
-        $GLOBALS['theme_calls']['unregistered_sidebars'][] = $id;
+        Theme_Stub_Calls::$unregisteredSidebars[] = $id;
     }
 }
 
 if (! function_exists('genesis_unregister_layout')) {
     function genesis_unregister_layout(string $layout): void
     {
-        $GLOBALS['theme_calls']['layouts'][] = $layout;
+        Theme_Stub_Calls::$layouts[] = $layout;
     }
 }
 
@@ -61,7 +97,7 @@ if (! function_exists('tgmpa')) {
      */
     function tgmpa(array $plugins, array $config = []): void
     {
-        $GLOBALS['tgmpa_calls'][] = [$plugins, $config];
+        Theme_Stub_Calls::$tgmpa[] = [$plugins, $config];
     }
 }
 
