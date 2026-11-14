@@ -35,7 +35,7 @@ function utility_pro_setup(): void
 
     define('CHILD_THEME_NAME', 'utility-pro');
     define('CHILD_THEME_URL', 'https://store.carriedils.com/utility-pro');
-    define('CHILD_THEME_VERSION', '1.3.1');
+    define('CHILD_THEME_VERSION', '1.3.2');
 
     // Add HTML5 markup structure.
     add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']);
